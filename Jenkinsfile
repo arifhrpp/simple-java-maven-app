@@ -11,8 +11,12 @@ node {
         } finally {
             junit 'target/surefire-reports/*.xml'
         }
-        stage('Deliver') {
+            stage('Manual Approval') {
+            input message: 'Lanjutkan ke tahap Deploy?(Klik "Proceed" untuk mengakhiri)'
+        }
+            stage('Deploy') {
             sh './jenkins/scripts/deliver.sh'
+            sleep time:60
         }
     }
 }
